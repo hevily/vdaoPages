@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+	    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+	    <meta content="telephone=no" name="format-detection">
+	    <meta content="yes" name="apple-touch-fullscreen">
+		<title>产品分类</title>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<script src="../js/jquery-3.1.1.min.js" type="text/javascript"></script>
+		<script src="../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.body{font-size: .14rem;height: 100%;}
+			.header{display: flex;background: #fff;justify-content: space-between;align-items: center; font-size: .18rem;padding:.15rem;}
+			.search{width: .165rem;height: .165rem;background: url(../img/search.png) no-repeat;background-size:.165rem .165rem;background-position: center;}
+			.content{display: flex;}
+			.content .left .type{width: .8rem;height: .65rem;line-height: .65rem;text-align: center;color: #666666;}
+			.content .left .type.check{background: #fff;color: #000000;}
+			.content .right{flex: 1;}
+			.content .right .food{display: flex;justify-content: space-between;padding: .1rem;background: #fff;margin-bottom: .1rem;}
+			.content .right .food .img{width: .75rem;height: .75rem;background: #A0A0A0; border-radius: .025rem;flex: 0 0 .75rem;margin-right: .1rem;}
+			.content .right .food .img>img{width: 100%;height: auto;}
+			.content .right .food .other{display: flex;flex-direction: column;justify-content: space-between;flex: 1;}
+			.content .right .food .other .info{font-size: .11rem;}
+			.content .right .food .other .sale{color: #333333;}
+			.content .right .food .other .priceBox{font-size: .16rem;display: flex;justify-content: space-between;align-items: center;color: #999999;}
+			.content .right .food .other .price{color: #fe563c;}
+			.content .right .food .other .add{width: .3rem;height: .3rem;background: url(../img/add.png) no-repeat;background-size:.2rem .2rem;background-position: center;}
+			.c_gray{color: #666666;}
+		</style>
+	</head>
+	<body>
+		<div class="body">
+			<div class="header">
+				<div></div>
+				<div>产品分类</div>
+				<div class="search"></div>
+			</div>
+			<div class="content">
+				<div class="left">
+					<div id="1" class="type check">茶饮</div>
+					<div id="2" class="type">小吃</div>
+					<div id="3" class="type">芝心</div>
+					<div id="4" class="type">咖啡</div>
+					<div id="5" class="type">爽爽冰</div>
+				</div>
+				<div class="right">
+					<div class="food">
+						<div class="img"></div>
+						<div class="other">
+							<div class="name font_w">柚子冰红茶</div>
+							<div class="info c_gray">香浓摩卡酱与咖啡原液，在牛奶加冰 块中绽放快乐</div>
+							<div class="sale"> 月售3    好评率100% </div>
+							<div class="priceBox">
+								<div><span class="price">￥32.00</span>起</div>
+								<div class="add"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var foods = [
+		{
+			id:1,
+			name:'柚子冰红茶',
+			info:'香浓摩卡酱与咖啡原液，在牛奶加冰 块中绽放快乐',
+			sale:3,
+			good:98,
+			price:32,
+		},
+		{
+			id:2,
+			name:'桂花茶',
+			info:'香浓摩卡酱与咖啡原液，在牛奶加冰 块中绽放快乐',
+			sale:30,
+			good:100,
+			price:32,
+		}
+	]
+	$(function(){
+		$('.content .left .type').click(function(){
+			var check = $(this).is('.check');
+			if(!check){
+				$(this).addClass('check').siblings('.check').removeClass('check');
+				var id = $(this).attr('id');
+				alert('id = '+id);
+				
+				//渲染产品
+				var food = '';
+				$.each(foods,function(idx,obj){
+					food += '<div class="food">'+
+								'<div class="img"></div>'+
+								'<div class="other">'+
+									'<div class="name font_w">'+obj.name+'</div>'+
+									'<div class="info c_gray">'+obj.info+'</div>'+
+									'<div class="sale"> 月售'+obj.sale+'    好评率'+obj.good+'% </div>'+
+									'<div class="priceBox">'+
+										'<div><span class="price">￥'+obj.price+'</span>起</div>'+
+										'<div class="add" id='+obj.id+'></div>'+
+									'</div>'+
+								'</div>'+
+							'</div>'
+				})
+				//清空再添加
+				$('.content .right').empty().append(food);
+				
+			}
+		})
+	})
+</script>

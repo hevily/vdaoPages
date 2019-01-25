@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+	    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+	    <meta content="telephone=no" name="format-detection">
+	    <meta content="yes" name="apple-touch-fullscreen">
+		<title>评价</title>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<script src="../js/jquery-3.1.1.min.js" type="text/javascript"></script>
+		<script src="../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.box{min-height: 100%;font-size: 0.14rem;background: #fff;}
+			.header{display: flex;align-items: center;padding: .2rem;}
+			.header .left{border-right: 1px solid #999999;padding: 0 .3rem;font-size: .11rem;text-align: center;}
+			.header .left .num{font-size: .24rem;}
+			.header .right{padding: 0 .2rem;font-size: .11rem;}
+			.header .right span{color: #f5b72e;font-size: .13rem;padding:0 .1rem;}
+			.nav{display: flex;padding: .1rem;}
+			.nav>div{flex: 1;text-align: center;border:1px solid #ff6633;color: #FF6633;padding: .05rem;}
+			.nav>div:nth-child(1){border-radius: .05rem 0 0 .05rem;}
+			.nav>div:nth-child(2){border-radius:0 .05rem .05rem 0;}
+			.nav>div.check{background: #ff6633;color: #fff;}
+			.view{padding: .1rem;font-size: .12rem;}
+			.view>div{display: none;}
+			.view>div.check{display: block;}
+			.view .top{display: flex;}
+			.view .top .type{ padding: .05rem;background: #ffe8e0;border-radius: .025rem;margin-right: .05rem;color: #666666;}
+			.view .top .type.bad{background: #f1f1f1;}
+			.view .top .type.check{background: #ff6633;color: #fff;}
+			.kg{height: .1rem;width: 100%; background: #f7f7f7;}
+			.valua{display: flex;padding: .1rem 0;}
+			.valua .img{width: .31rem;height: .31rem;background: #000000;border-radius: 50%;margin-right: .1rem;}
+			.valua .other{flex: 1;}
+			.valua .other .nameBox{display: flex;justify-content: space-between;}
+			.imgs{line-height: 0;padding: .1rem 0;display: flex;overflow-x: auto;}
+			.imgs>img{width: .905rem;height: .905rem;}
+			.imgs>img+img{padding-left: .1rem;}
+			.c_orange{color: #ff6633;}
+			.c_gray{color: #999999;}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="header">
+				<div class="left">
+					<div class="c_orange num">4.5</div>
+					<div>商家评分</div>
+				</div>
+				<div class="right">
+					<div>服务态度<span>⭐⭐⭐⭐⭐4.8</span></div>
+					<div>服务质量<span>⭐⭐⭐⭐⭐4.8</span></div>
+				</div>
+			</div>
+			<div class="kg"></div>
+			<div class="nav">
+				<div class="check">餐饮评价</div>
+				<div>办公室评价</div>
+			</div>
+			<div class="view">
+				<div class="food check">
+					<div class="top">
+						<div class="type check">全部</div>
+						<div class="type">很满意</div>
+						<div class="type">满意</div>
+						<div class="type">一般</div>
+						<div class="type bad">待提高</div>
+					</div>
+					<div class="info">
+						<!--<div class="valua" data-type="2">
+							<div class="img"></div>
+							<div class="other">
+								<div class="nameBox">
+									<div class="name">还我大鸡腿256</div>
+									<div class="time c_gray">11-6</div>
+								</div>
+								<div class="goods c_gray">产品：抹茶星冰乐 </div>
+								<div class="info">
+									<span class="type c_orange">[满意]</span>
+									干净卫生、食材新鲜，很满意，味道很好，服务态度很好，发货速度也快，赞一个！
+								</div>
+								<div class="imgs">
+									<img src="img/tea.png" alt="">
+									<img src="img/tea.png" alt=""><img src="img/tea.png" alt="">
+									<img src="img/tea.png" alt="">
+									<img src="img/tea.png" alt="">
+								</div>
+							</div>
+						</div>-->
+					</div>
+				</div>
+				<div class="office">
+					<div class="top">
+						<div class="type check">全部</div>
+						<div class="type">很满意</div>
+						<div class="type">满意</div>
+						<div class="type">一般</div>
+						<div class="type bad">待提高</div>
+					</div>
+					<div class="info">
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var data = {
+		valua:{
+			food:[
+				{
+					type:1
+				},
+				{
+					type:2
+				},
+				{
+					type:3
+				},
+				{
+					type:4
+				},
+				{
+					type:1
+				},
+			],
+			office:[
+				{
+					type:1
+				},
+				{
+					type:2
+				},
+				{
+					type:3
+				},
+				{
+					type:4
+				},
+				{
+					type:1
+				},
+			]
+		}
+	}
+	$(function(){
+		$.each(data.valua.food,function(idx,obj){
+			var valua = '<div class="valua"  data-type="'+obj.type+'">'+
+							'<div class="img"></div>'+
+							'<div class="other">'+
+								'<div class="nameBox">'+
+									'<div class="name">还我大鸡腿256</div>'+
+									'<div class="time c_gray">11-6</div>'+
+								'</div>'+
+								'<div class="goods c_gray">产品：抹茶星冰乐 </div>'+
+								'<div class="info">'+
+									'<span class="type c_orange">[满意]</span>'+
+									'这里是餐饮评价'+obj.type+'干净卫生、食材新鲜，很满意，味道很好，服务态度很好，发货速度也快，赞一个！'+
+								'</div>'+
+								'<div class="imgs">'+
+									'<img src="../img/tea.png" alt="">'+
+									'<img src="../img/tea.png" alt="">'+
+									'<img src="../img/tea.png" alt="">'+
+									'<img src="../img/tea.png" alt="">'+
+								'</div>'+
+							'</div>'+
+						'</div>';
+			$('.view .food>.info').append(valua);
+		});
+		$.each(data.valua.office,function(idx,obj){
+			var valua = '<div class="valua"  data-type="'+obj.type+'">'+
+							'<div class="img"></div>'+
+							'<div class="other">'+
+								'<div class="nameBox">'+
+									'<div class="name">还我大鸡腿256</div>'+
+									'<div class="time c_gray">11-6</div>'+
+								'</div>'+
+								'<div class="goods c_gray">产品：抹茶星冰乐 </div>'+
+								'<div class="info">'+
+									'<span class="type c_orange">[满意]</span>'+
+									'这里是办公室评价'+obj.type+'干净卫生、食材新鲜，很满意，味道很好，服务态度很好，发货速度也快，赞一个！'+
+								'</div>'+
+								'<div class="imgs">'+
+									'<img src="../img/tea.png" alt="">'+
+									'<img src="../img/tea.png" alt="">'+
+									'<img src="../img/tea.png" alt="">'+
+									'<img src="../img/tea.png" alt="">'+
+								'</div>'+
+							'</div>'+
+						'</div>';
+			$('.view .office>.info').append(valua);
+		})
+		$('.nav>div').click(function(){
+			var index = $(this).index();
+			$(this).addClass('check').siblings().removeClass('check');
+			$('.view>div').removeClass('check').eq(index).addClass('check');
+		})
+		$('.top .type').click(function(){
+			var index = $(this).index();
+			var $this = $('.view .check');
+			$(this).addClass('check').siblings().removeClass('check');
+			$('.view .check').find('.valua').hide();
+			switch (index){
+				case 0:
+				$this.find('.valua').show();
+				break;
+				case 1:
+				$this.find('.valua[data-type = "1"]').show();
+				break;
+				case 2:
+				$this.find('.valua[data-type = "2"]').show();
+				break;
+				case 3:
+				$this.find('.valua[data-type = "3"]').show();
+				break;
+				case 4:
+				$this.find('.valua[data-type = "4"]').show();
+				break;
+			}
+		})
+	})
+</script>

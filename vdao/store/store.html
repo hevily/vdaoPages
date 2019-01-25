@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+	    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+	    <meta content="telephone=no" name="format-detection">
+	    <meta content="yes" name="apple-touch-fullscreen">
+		<title>店铺信息</title>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<script src="../js/jquery-3.1.1.min.js" type="text/javascript"></script>
+		<script src="../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.body{position: relative;height: 100%;font-size: 0.14rem;}
+			.box{padding: .2rem .1rem;position: absolute;background: #FFFFFF;min-height: 100%;}
+			.box>div{padding: .1rem 0;}
+			.title{padding: .2rem 0;}
+			.adressBox{display: flex;align-items: center;justify-content: space-between;}
+			.adress{display: flex;align-items: center;}
+			.adress:before{
+				content: '';
+				display: inline-block;
+				width: .15rem;
+				height: .175rem;
+				background: url(../img/adress.png) no-repeat;
+				background-size:.15rem .175rem;
+				background-position: center;
+				margin-right: .1rem;
+			}
+			.adressBox:after{
+				content: '';
+				display: inline-block;
+				width: .17rem;
+				height: .18rem;
+				background: url(../img/call.png) no-repeat;
+				background-size:.17rem .18rem;
+				background-position: center;
+			}
+			.timeBox{display: flex;align-items: center;border-bottom: 1px solid #F5f5f5;}
+			.timeBox:before{
+				content: '';
+				display: inline-block;
+				width: .15rem;
+				height: .15rem;
+				background: url(../img/time.png) no-repeat;
+				background-size:.15rem .15rem;
+				background-position: center;
+				margin-right: .1rem;
+			}
+			.imgs>img{
+				width: .76rem;
+				height: .5rem;
+				margin: .1rem;
+			}
+			.time{color: #000000;}
+			
+			.bg_gray{background: rgba(0,0,0,.4);font-size: 0.14rem;position: absolute;top: 0;left: 0;right: 0;bottom: 0;z-index: 9999;display: none;align-items: center;}
+			.bg_gray>img{width: 100%;height: auto;}
+			.c_b{font-weight: 700;}
+			.c_gray{color: #5e5e5e;}
+		</style>
+	</head>
+	<body>
+		<div class="body">
+		<div class="box">
+			<div class="title c_b">店铺信息</div>
+			<div class="adressBox c_gray">
+				<div class="adress">广州市番禺区钟村镇钟屏岔道45号</div>
+			</div>
+			<div class="timeBox c_gray">营业时间: <span class="time c_b">10:00-22:00</span></div>
+			<div>
+				<div class="c_b">店铺实景</div>
+				<div class="imgs">
+					<img src="../img/tea.png" alt="">
+					<img src="../img/tea.png" alt="">
+					<img src="../img/tea.png" alt="">
+					<img src="../img/tea.png" alt="">
+					<img src="../img/tea.png" alt="">
+				</div>
+			</div>
+			<div>
+				<div class="c_b">营业资质</div>
+				<div class="imgs">
+					<img src="../img/tea.png" alt=""><img src="../img/tea.png" alt="">
+				</div>
+			</div>
+		</div>
+		<div class="bg_gray">
+			
+		</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	$(function(){
+		$('.imgs>img').click(function(){
+			var src = $(this).attr('src');
+			$('.bg_gray').append('<img src="'+src+'" >').css('display','flex');
+		});
+		$('.bg_gray').click(function(){
+			$(this).empty().hide();
+		})
+	})
+</script>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+	    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+	    <meta content="telephone=no" name="format-detection">
+	    <meta content="yes" name="apple-touch-fullscreen">
+		<title>账户安全</title>
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+		<script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.body{position: relative;height: 100%;font-size: 0.16rem;}
+			.box{background: #f7f7f7;position: absolute;top: 0;left: 0;right: 0;bottom: 0;height: 100%;overflow: auto;}
+			.kg{height: .1rem;width: 100%; background: #f7f7f7;}
+			.head{height: 0.44rem;display: flex;justify-content: space-between ;padding: 0 .15rem;font-size: .18rem;background: #fff;}
+			.head div{line-height: .44rem;color: #000000;}
+			.head .left{flex: 0 0 .1rem;background: url(img/back.png) no-repeat;background-size: .1rem .18rem; background-position: center;}
+			.content .item{padding: .15rem;background: #fff;display: flex;justify-content: space-between;align-items: center;color: #888888;font-size: .16rem;}
+			.content .item+.item{border-top: 1px solid #eeeeee;}
+			.content .item:nth-child(1){font-size: .14rem;}
+			.content .item>div:nth-child(1){color: #000000;}
+			.content .item>div:nth-child(2){color: #ff6633;}
+			.content .item>div.check{color: #888888;}
+			.content .item .right{width: .07rem;height: .125rem; background: url(img/more_gray.png) no-repeat;background-size: .07rem .125rem; background-position: center;}
+			
+			.bg_gray{background: rgba(0,0,0,.4);font-size: 0.14rem;position: absolute;top: 0;left: 0;right: 0;bottom: 0;z-index: 9999;display: none;align-items: center;justify-content: center;}
+			.bg_gray .selectBox{background: #fff;border-radius: .1rem;text-align: center;font-size: .16rem;}
+			.bg_gray .selectBox .title{padding: .15rem;font-weight: 700;}
+			.bg_gray .selectBox .info{font-size: .12rem;padding: .15rem .3rem;}
+			.bg_gray .selectBox .footer{display: flex;border-top: 1px solid #eeeeee;text-align: center;color: #ff6633;}
+			.bg_gray .selectBox .footer>div{flex: 1;padding: .1rem;}
+			.bg_gray .selectBox .footer>div+div{border-left: 1px solid #eeeeee;}
+			.c_gray{color: #666666;}
+		</style>
+	</head>
+	<body>
+		<!--办公室订单-->
+		<div class="body">
+			<div class="box">
+				<div class="head">
+					<div class="left"></div>
+					<div>账户安全</div>
+					<div></div>
+				</div>
+				<div class="kg"></div>
+				<div class="content">
+					<div class="item">账号绑定</div>
+					<div class="item">
+						<div>手机</div>
+						<div>1234567890</div>
+					</div>
+					<div class="item">
+						<div>微信</div>
+						<!--添加class="check"表示已绑定，type:1 ==>微信 2==>QQ-->
+						<div class="check" type="1">已绑定</div>
+					</div>
+					<div class="item">
+						<div>QQ</div>
+						<div type="2">未绑定</div>
+					</div>
+				</div>
+				<div class="kg"></div>
+				<div class="content">
+					<div class="item">安全设置</div>
+					<div class="item">
+						<div>登陆密码</div>
+						<div class="right"></div>
+					</div>
+					<div class="item">
+						<div>支付密码</div>
+						<div class="right"></div>
+					</div>
+				</div>
+			</div>
+			
+			<!---->
+			<div class="bg_gray">
+				<div class="selectBox">
+					<div class="title">解除绑定</div>
+					<div class="info">确定要解除账号与<span class="type"></span>的关联吗？</div>
+					<div class="footer">
+						<div class="left">取消</div>
+						<div class="right">解除绑定</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	$(function(){
+		//解除绑定 
+		$('.check').click(function(){
+			var type = $(this).attr('type');
+			$('.bg_gray').css('display','flex').find('.info .type').text(type == '1'?'微信号':'QQ');
+		});
+		
+		// 隐藏
+		$('.bg_gray').click(function(){
+			$('.bg_gray').hide().find('.select').hide();
+		});
+		
+	})
+</script>

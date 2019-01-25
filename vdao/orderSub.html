@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+	    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+	    <meta content="telephone=no" name="format-detection">
+	    <meta content="yes" name="apple-touch-fullscreen">
+		<title>提交订单</title>
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+		<script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.body{position: relative;height: 100%;font-size: 0.14rem;}
+			.box{background: #f7f7f7;position: absolute;top: 0;left: 0;right: 0;bottom: .55rem;height: calc(100% - .55rem);overflow: auto;}
+			.kg{height: .1rem;width: 100%; background: #f7f7f7;}
+			.head{height: 0.44rem;display: flex;justify-content: space-between ;padding: 0 .15rem;font-size: .18rem;background: #fff;}
+			.head div{line-height: .44rem;color: #000000;}
+			.head .left{flex: 0 0 .1rem;background: url(img/back.png) no-repeat;background-size: .1rem .18rem; background-position: center;}
+			.adress{display: none; padding: .15rem;background: #fff;}
+			.adress .user{display: flex;justify-content: space-between;}
+			.adress .adInfo{font-size: .16rem;display: flex;justify-content: space-between;align-items: center;}
+			.adress .adInfo:after{content: '';display: inline-block;width: .07rem; height:.125rem;background: url(img/more.png) no-repeat;background-size:100% 100%; background-position: center;margin-left: .125rem;}
+			.contact{padding: 0 .15rem;background: #fff;}
+			.contact .store{display: flex;justify-content: space-between;align-items: center;padding: .1rem 0;}
+			.contact .store .left{display: flex;align-items: center;}
+			.contact .store .left:before{content: '';display: inline-block;width: .25rem; height:.25rem;background: url(img/store.png) no-repeat;background-size:100% 100%; background-position: center;margin-right: .125rem;}
+			.contact .foods .food{display: flex;justify-content: space-between;padding: .1rem 0;border-top: 1px solid #f1f1f1;}
+			.contact .foods .food .img{width: .75rem;height: .75rem;background: #A0A0A0; border-radius: .025rem;flex: 0 0 .75rem;margin-right: .1rem;}
+			.contact .foods .food .other{display: flex;flex-direction: column;justify-content: space-between;flex: 1;}
+			.contact .foods .food .other .info{font-size: .11rem;}
+			.contact .foods .food .other .priceBox{font-size: .16rem;display: flex;justify-content: space-between;align-items: center;}
+			.contact .foods .food .other .price{color: #fe563c;}
+			.box>div:not(.head):not(.contact):not(.adress):not(.kg):not(.pay):not(.tips){font-size:.16rem;padding: .2rem .15rem;background: #fff;}
+			.note{font-size: .16rem;display: flex;align-items: center;}
+			.note input{font-size: .14rem; display: inline-block; flex-grow:1;padding: 0 .1rem;}
+			.all{display: flex;flex-direction: row-reverse;}
+			.all .allNum{margin-right: .2rem;}
+			.all .allPrice .price{color: #FF6633;}
+			.integral,.balance{display: flex;justify-content: space-between;}
+			.sendTime{display: none;justify-content: space-between;}
+			.sendTime .more:after{content: '';display: inline-block;width: .07rem; height:.125rem;margin-left: .115rem;background: url(img/more_gray.png) no-repeat;background-size:100% 100%; background-position: center;}
+			.tips{padding: .1rem .15rem;font-size: .14rem;display: none;}
+			
+			/*脚部*/
+			.pay{display: flex;flex-direction: row-reverse; align-items: center;position: absolute;width: 100%;bottom: 0;background: #fff;}
+			.pay .goPay{background: #FF6633; color: #ffffff;width: 1.5rem;height: .55rem;line-height: .55rem;text-align: center;margin-left: .1rem;font-size: .16rem;}
+			.pay .orange{color: #FF6633;font-size: .12rem;}
+			.pay .orange .money{font-size: .18rem;}
+			.pay .total{text-align: right;}
+			
+			/*点击支付*/
+			.bg_gray{background: rgba(0,0,0,.4);font-size: 0.14rem;position: absolute;top: 0;left: 0;right: 0;bottom: 0;z-index: 9999;display: none;flex-direction: column-reverse;align-items: center;}
+			.bg_gray .selectPay>div{background: #fff;text-align: center;width: 3.45rem;border-radius: .05rem;}
+			.bg_gray .price{height: .55rem; line-height: .55rem;margin-top: .15rem;font-size: .16rem;}
+			.bg_gray .time,.bg_gray .type>div{height: .55rem;line-height: .55rem;}
+			.bg_gray .time{display: flex;align-items: center;justify-content: space-between;padding:0 .15rem;}
+			.bg_gray .cancel{height: .11rem; width: .11rem;background: url(img/cancel.png) no-repeat;background-size:100% 100%; background-position: center;}
+			.bg_gray .type{padding: 0 .15rem;}
+			.bg_gray .type>div{display: flex;align-items: center;justify-content: space-between;}
+			.bg_gray .type>.check:after{content: '';display: inline-block;width: .135rem;height: .095rem; background: url(img/checked_pay.png)no-repeat;background-size:100% 100%; background-position: center;}
+			.bg_gray .type>div>div{display: flex;align-items: center;}
+			.logo_alipay:before{content: '';display: inline-block;width: .3rem;height: .3rem;margin-right: .1rem; background: url(img/alipay.png)no-repeat;background-size:100% auto; background-position: center;}
+			.logo_wechat:before{content: '';display: inline-block;width: .3rem;height: .3rem;margin-right: .1rem; background: url(img/wechatpay.png)no-repeat;background-size:100% auto; background-position: center;}
+			.logo_unionpay:before{content: '';display: inline-block;width: .3rem;height: .3rem;margin-right: .1rem; background: url(img/unionpay.png)no-repeat;background-size:100% auto; background-position: center;}
+			
+			.c_gray{color: #666666;}
+			.c_orange{color: #ff6633;}
+			.border_b{border-bottom: 1px solid #f1f1f1;}
+			.font_w{font-weight: 700;}
+			.checkbox{width: .2rem;height: .2rem;border: 1px solid #cbcbcb;border-radius: .025rem;}
+			.checkbox:checked{background: url(img/checked.png) no-repeat;background-size: .12rem .08rem; background-position: center;}
+		</style>
+	</head>
+	<body>
+		<!--自取订单，外卖订单-->
+		<div class="body">
+			<div class="box">
+				<div class="head">
+					<div class="left"></div>
+					<div>提交订单</div>
+					<div></div>
+				</div>
+				<div class="adress">
+				</div>
+				<div class="kg"></div>
+				<div class="contact border_b"></div>
+				<div class="note border_b">
+					<span>买家留言：</span>
+					<input type="text" placeholder="如有特殊配送要求，请在此填写附信">
+				</div>
+				<div class="all">
+					<span class="allPrice">小计：￥<span class="price"></span></span>
+					<span class="allNum">共<span class="num"></span>件商品</span>
+				</div>
+				<div class="kg"></div>
+				<div class="integral border_b">
+					<span>可用<span class="integralNum"></span>积分抵扣<span class="integralNum"></span>元</span>
+					<input class="checkbox" type="checkbox" name="integral" checked="">
+				</div>
+				<div class="balance">
+					<span>可用<span class="balanceNum"></span>余额抵扣<span class="balanceNum"></span>元</span>
+					<input class="checkbox" type="checkbox" name="balance">
+				</div>
+				<div class="kg"></div>
+				<div class="sendTime">
+					<div>送达时间</div>
+					<div class="time more">尽快送达（16:31送达）</div>
+				</div>
+				<div class="tips c_orange">*座位订金已抵扣30元</div>
+			</div>
+			
+			<div class="pay">
+				<div class="goPay">去支付</div>
+				<div class="total">
+					<p><span class="font_w">总计：</span><span class="orange">￥<span class="money"></span></span></p>
+					<p>包含配送费<span class="sendPrice"></span>元</p>
+				</div>
+			</div>
+			
+			<div class="bg_gray">
+				<div class="selectPay">
+					<div class="payType">
+						<div class="time">
+							<div></div>
+							<div>请在
+							<span class="time-item c_orange">
+							<!--<span id="day_show">0天</span>
+								<span id="hour_show">0时</span>-->
+								<span id="minute_show">30分</span>
+								<span id="second_show">0秒</span>
+							</span>
+							内完成支付</div>
+							<div class="cancel"></div>
+						</div>
+						<div class="type">
+							<div class="alipay check"><div class="logo_alipay">支付宝支付</div></div>
+							<div class="WeChat"><div class="logo_wechat">微信支付</div></div>
+							<div class="Unionpay"><div class="logo_unionpay">银行卡支付</div></div>
+						</div>
+					</div>
+					<div class="price c_orange">继续支付 ¥134.00</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var data ={
+		orderType:3,//1是门店自取订单，2是外卖配送订单,3订座点餐
+		user:{
+			userName:'咖啡猫',
+			userTel:'1321454654564',
+			integral:64,//积分
+			balance:64//余额
+		},
+		orderInfo:{
+			defaultAdress:'广东省广州市番禺区钟村街道长华 创意谷D区16栋6号',
+			store:{
+				name:'V稻茶饮',
+				sendPrice:5,
+				foods:[
+					{
+						name:'柚子冰红茶',
+						info:'香浓摩卡酱与咖啡原液，在牛奶加冰 块中绽放快乐',
+						price:32,
+						num:2
+					},
+					{
+						name:'柚子冰红茶',
+						info:'香浓摩卡酱与咖啡原液，在牛奶加冰 块中绽放快乐',
+						price:32,
+						num:2
+					}
+				],
+				allNum:2,
+				allPrice:64,
+				total:88
+			}
+		}
+	}
+	if(data.orderType == 2){
+		var user = '<div class="user c_gray"><span>收货人：'+data.user.userName+'</span> <span>'+data.user.userTel+'</span></div>';
+		var adress = '<div class="adInfo">收货地址：'+data.orderInfo.defaultAdress+'</div>';
+		$('.adress').append(user+adress);
+		$('.adress').show();
+		$('.sendTime').css('display','flex');
+	}
+	if(data.orderType == 3){
+		$('.tips').show();
+	}
+	var food = '';
+	$.each(data.orderInfo.store.foods,function(idx,obj){
+		food += '<div class="food">'+
+					'<div class="img"></div>'+
+					'<div class="other">'+
+						'<div class="name font_w">'+obj.name+'</div>'+
+						'<div class="info c_gray">'+obj.info+'</div>'+
+						'<div class="priceBox"><span class="price">￥'+obj.price.toFixed(2)+'</span><span class="foodNum">X'+obj.num+'</span></div>'+
+					'</div>'+
+				'</div>';
+	})
+	$('.contact').append(
+	'<div class="store">'+
+		'<div class="left">'+data.orderInfo.store.name+'</div>'+
+		'<div class="right c_gray">配送费'+data.orderInfo.store.sendPrice+'元</div>'+
+	'</div>'+
+	'<div class="foods">'+food+'</div>');
+	$('.allPrice .price').text(data.orderInfo.store.allPrice.toFixed(2));
+	$('.allNum .num').text(data.orderInfo.store.allNum);
+	$('.integralNum').text(data.user.integral);
+	$('.balanceNum').text(data.user.balance);
+	$('.sendPrice').text(data.orderInfo.store.sendPrice);
+	$('.total .money').text(data.orderInfo.store.total.toFixed(2));
+	
+	var intDiff = parseInt(1799);//倒计时总秒数量
+	payTime = false;//判断倒计时状态
+	
+	//点击支付
+	$('.goPay').click(function(){
+		$('.bg_gray').css('display','flex');
+		if(!payTime){//判断倒计时状态,只执行一次
+			timer(intDiff);
+		}
+	})
+	
+	//取消支付
+	$('.bg_gray .cancel').click(function(){
+		$('.bg_gray').css('display','none');
+	})
+	
+	//选择支付方式
+	$('.type>div').click(function(){
+		var checked = $(this).is('.check');
+		if(!checked){
+			$(this).addClass('check').siblings().removeClass('check')
+		}
+	})
+	
+function timer(intDiff){
+    window.setInterval(function(){
+    var day=0,
+        hour=0,
+        minute=0,
+        second=0;//时间默认值        
+    if(intDiff > 0){
+        day = Math.floor(intDiff / (60 * 60 * 24));
+        hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+        minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+        second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+    }
+    if (minute <= 9) minute = '0' + minute;
+    if (second <= 9) second = '0' + second;
+//     $('#day_show').html(day+"天");
+//     $('#hour_show').html('<s id="h"></s>'+hour+'时');
+    $('#minute_show').html('<s></s>'+minute+'分');
+    $('#second_show').html('<s></s>'+second+'秒');
+    intDiff--;
+    }, 1000);
+	payTime = !payTime
+}
+</script>

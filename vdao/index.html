@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+	    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+	    <meta content="telephone=no" name="format-detection">
+	    <meta content="yes" name="apple-touch-fullscreen">
+		<title>首页</title>
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+		<script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<style type="text/css">
+			.box{background: #fff;min-height: 100%;font-size: .14rem;position: relative;}
+			.head{height: 0.44rem;width: 100%; display: flex;justify-content: space-between; position: absolute;top: 0;padding: 0 .15rem;z-index: 9999;}
+			.head div{line-height: .44rem;color: #FF6633;}
+			.head div:nth-child(1),.head div:nth-child(3){flex: 0 0 .33rem;background-size: .33rem .33rem; background-position: center;}
+			.head .left{background: url(img/message.png) no-repeat;}
+			.head .right{background: url(img/search_round.png) no-repeat;}
+			.head .search{width: 2.55rem;height: .33rem; background: #fff; margin: auto;border-radius: 0.165rem;overflow: hidden;padding: 0 .2rem;box-shadow: 0 0 8px rgba(0,0,0,.15);}
+			.head .search input{width: 100%;height: 100%;display: block;}
+			.kg{height: 1.78rem;width: 100%; background: #f7f7f7;overflow: hidden;}
+			.kg>img{height: auto;width: 100%;}
+			.contact{padding: 0 .15rem;font-weight: 700;}
+			.contact .tips{display: flex;align-items: center;color: #ff6633;margin: 0.135rem 0;}
+			.contact .tips:before{content: '';display: inline-block;width: .18rem; height:.18rem;margin-right: .115rem; background: url(img/tips.png) no-repeat;background-size:100% 100%; background-position: center;}
+			.contact .top{ font-size: .2rem;display: flex; justify-content: space-between;align-items: center;}
+			.contact .top .top_more{font-size: .14rem;color: #999999;display: flex;align-items: center;}
+			.contact .top .top_more:after{content: '';display: inline-block;width: .07rem; height:.125rem;margin-left: .115rem;background: url(img/more_gray.png) no-repeat;background-size:100% 100%; background-position: center;}
+			.contact .recFood .types{display: flex;padding-top: .15rem;flex-wrap: wrap;}
+			.contact .recFood .types .type{width: .5rem;height: .23rem;background: #e9e9e9; text-align: center;line-height: .23rem;border-radius: .05rem;margin-right: .15rem;margin-bottom:.15rem ;}
+			.contact .recFood .types .type.check{background: #fed536;position: relative;}
+			.contact .recFood .typeItems{display: flex; min-width: 100%;height: 1.86rem; background: #f7f7f7; border-radius: .1rem;padding: .1rem .2rem; overflow: scroll;}
+			.contact .recFood .item{position: relative; margin-right: .1rem; background: #fff; border-radius: .05rem;}
+			.contact .recFood .item .index{display: inline-block; padding: .03rem; background: #fed54c;border-radius: .05rem; color: #fff;font-size: .08rem; text-align: center; line-height: .15rem;position: absolute; top: .1rem;left:-0.05rem;}
+			.contact .recFood .item .img{background: #f9eac9;width: 1.15rem;height: 1rem;border-radius: .05rem .05rem 0 0;}
+			.contact .recFood .item .img>img{height: 100%;width: 100%;}
+			.contact .recFood .item .name p{margin: .1rem .05rem;}
+			.contact .recFood .item .name p span{color: #999999; font-size: .12rem;}
+			.contact .recStore .store{display: flex;font-size: .12rem;margin: .1rem 0; border-radius: .1rem;box-shadow: 0 0 8px rgba(0,0,0,.15);padding: .1rem;overflow: hidden;}
+			.contact .recStore .store .img{width: .7rem;}
+			.contact .recStore .store .img .storeImg{width: .7rem;height: .7rem; border-radius: 50%; background: greenyellow;}
+			.contact .recStore .store .img .storeImg>img{width:100%;height: 100%;}
+			.contact .recStore .store .other{padding: 0 .1rem;}
+			.contact .recStore .store .other .name{font-size: .18rem;}
+			.contact .recStore .store .other .info{color: #333333;}
+			.contact .recStore .store .other .foods{display: flex;}
+			.contact .recStore .store .other .foods .food+.food{margin-left: .1rem;}
+			.contact .recStore .store .other .foods .food .foodImg{width: .75rem; height: .75rem; border-radius: .025rem; background: #FED536;}
+			.contact .recStore .store .other .foods .food .price{color: #ff0000;margin-top: .05rem;}
+			/* Swipe 2 required styles */
+			
+			.swipe {
+			  overflow: hidden;
+			  visibility: hidden;
+			  position: relative;
+			  width: 100%;
+			}
+			.swipe-wrap {
+			  overflow: hidden;
+			  position: relative;
+			}
+			.swipe-wrap > div {
+			  float:left;
+			  width:100%;
+			  position: relative;
+			}
+			.swipe-wrap > div img{
+			  width:100%;
+			  height: auto;
+			  height: 2.605rem;
+			}
+			.swipe .round{
+				display: flex;
+				position: absolute;
+				bottom: .1rem;
+				width: 100%;
+				justify-content: center;
+			}
+			.swipe .round>li{
+				width: .16rem;
+				height: .08rem;
+				border-radius: 0.035rem;
+				margin: 0 .05rem;
+				background: #fff;
+			}
+			/* END required styles */
+	</style>
+		<div class="box">
+			<!--头-->
+			<div class="head">
+				<div class="left"></div>
+				<div class="search">
+					<input type="search" placeholder="搜索产品、商店">
+				</div>
+				<div class="right"></div>
+			</div>
+			<!--宣传图-->
+			<div id='mySwipe' class='swipe'>
+				<div class='swipe-wrap'>
+					<div><img src="img/tea.png" ></div>
+					<div><img src="img/tea.png" ></div>
+					<div><img src="img/tea.png" ></div>
+					<div><img src="img/search.png" ></div>
+				</div>
+				<ul class="round">
+					<li class="index"></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+			</div>
+			<div class="contact">
+				<!--通知-->
+				<div class="tips"></div>
+				<!--推荐食品-->
+				<div class="recFood">
+					<div class="top"><span class="top_l">热门推荐</span><span class="top_more">更多</span></div>
+					<div class="types"></div>
+					<div class="typeItems">
+						<div class="item">
+							<div class="index">广州热门NO.1</div>
+							<div class="img"></div>
+							<div class="name">
+								<p>xxxxxxxxxx</p>
+								<p>xxxxxxxxx <span>个品尝</span></p>
+							</div>
+						</div>
+						<div class="item">
+							<div class="index">广州热门NO.1</div>
+							<div class="img"></div>
+							<div class="name">
+								<p>xxxxxxxxxx</p>
+								<p>xxxxxxxxx <span>个品尝</span></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--推荐食品End-->
+				<!--推荐门店-->
+				<div class="recStore">
+					<div class="top"><span class="top_l">推荐门店</span><span class="top_more">更多</span></div>
+				</div>
+				<!--推荐门店End-->
+			</div>
+		</div>
+	</body>
+</html>
+
+<script src='js/swipe.js'></script>
+<script type="text/javascript">
+	
+	$(function(){
+		var elem = document.getElementById('mySwipe');
+		window.mySwipe = Swipe(elem, {
+			startSlide: 0,
+			auto: 1000,
+			continuous: true,
+			disableScroll: true,
+			stopPropagation: true,
+			callback: function(index, element) {
+				var li = $('.swipe .round').find('li');
+				if(index == 0){
+					li.css({margin:'0 .05rem',borderRadius:'0.035rem'})
+				}else{
+					li.eq(index).css({marginLeft:0,borderRadius:'0 0.035rem 0.035rem 0'}).prevAll().css({margin:0,borderRadius:0});
+					li.eq(0).css('border-radius','0.035rem 0 0 0.035rem')
+					li.eq(index).nextAll().css({margin:'0 .05rem',borderRadius:'0.035rem'})
+				}				
+			},
+			transitionEnd: function(index, element) {}
+		});
+		var data ={
+			tips:'好意融融咖啡香，v啡和你一起过星年！',
+			foodId:[
+				{	
+					id:1,
+					type:'茶饮'
+				},
+				{
+					id:2,
+					type:'小吃'
+				},
+				{
+					id:3,
+					type:'芝心'
+				},
+				{
+					id:4,
+					type:'咖啡'
+				},
+				{
+					id:5,
+					type:'爽爽冰'
+				},
+			],
+			foods:[
+				{
+					name:'咖啡',
+					num:465
+				},
+				{
+					name:'非洲油条',
+					num:465
+				},
+				{
+					name:'非洲油条',
+					num:465
+				},
+				{
+					name:'非洲油条',
+					num:465
+				}
+			],
+			recommendStore:[
+				{
+					name:'V店茶饮',
+					star:4.8,
+					sale:456,
+					minBuy:0,
+					sendFee:5,
+					sendTime:40,
+					distance:1.5,
+					foods:[
+						{
+							name:'果汁组合',
+							price:18
+						},
+						{
+							name:'果汁组合',
+							price:18
+						},
+						{
+							name:'果汁组合',
+							price:18
+						}
+					]
+				},
+				{
+					name:'V店茶饮',
+					star:4.8,
+					sale:456,
+					minBuy:0,
+					sendFee:5,
+					sendTime:40,
+					distance:1.5,
+					foods:[
+						{
+							name:'果汁组合',
+							price:18
+						},
+						{
+							name:'果汁组合',
+							price:18
+						},
+						{
+							name:'果汁组合',
+							price:18
+						}
+					]
+				}
+			]
+		}
+		if(data){
+			$('.tips').text(data.tips);
+			$.each(data.foodId,function(idx,obj){
+				$('.types').append('<div class="type" id="'+obj.id+'">'+obj.type+'</div>');
+				$('.type').eq(0).addClass('check');
+			});
+			$.each(data.recommendStore,function(idx,obj){
+				var item = '';
+				$.each(obj.foods,function(index,object){
+					item += '<div class="food">'+
+								'<div class="foodImg"></div>'+
+								'<p>'+object.name+'</p>'+
+								'<p class="price">￥'+object.price+'</p>'+
+							'</div>'
+				})
+				$('.recStore').append(
+					'<div class="store">'+
+						'<div class="img">'+
+							'<div class="storeImg"></div>'+
+						'</div>'+
+						'<div class="other">'+
+							'<div class="name">'+obj.name+'</div>'+
+							'<div class="star">⭐⭐⭐⭐⭐ '+obj.star+' 月售'+obj.sale+'</div>'+
+							'<div class="info">起送￥'+obj.minBuy+'  配送￥'+obj.sendFee+'   '+obj.sendTime+'分钟  '+obj.distance+'km</div>'+
+							'<div class="foods">'+item+'</div>'+
+						'</div>'+
+					'</div>');
+			});
+			
+		}
+		// 点击食品类型
+		$('.types .type').on('click',function(){
+			var checked = $(this).is('.check');
+			if(!checked){
+				$(this).addClass('check').siblings('.type').removeClass('check');
+				$('.recFood .typeItems').empty();
+				var index = $(this).attr('id');
+				alert(index);
+				var item = '';
+				$.each(data.foods,function(index,object){
+					item += '<div class="item">'+
+								'<div class="index">广州热门NO.'+index+1+'</div>'+
+								'<div class="img"></div>'+
+								'<div class="name">'+
+									'<p>'+object.name+'</p>'+
+									'<p>'+object.num+' <span>个品尝</span></p>'+
+								'</div>'+
+							'</div>'
+				});
+				$('.recFood .typeItems').append(item);
+			}
+		})
+	})
+</script>
